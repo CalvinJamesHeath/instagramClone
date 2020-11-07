@@ -12,3 +12,13 @@
   object-fit: contain;
   border-bottom: 1px solid lightgrey;
 }
+
+.app__signup{
+  display: flex;
+  flex-direction: column;
+}
+
+input{
+  padding:5px;
+  margin:5px;
+}
