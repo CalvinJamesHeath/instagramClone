@@ -5,6 +5,8 @@ import { auth, db } from "./firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import { Button, Input } from "@material-ui/core";
+import ImageUpload from "./ImageUpload";
+
 
 function getModalStyle() {
   const top = 50;
@@ -57,7 +59,7 @@ function App() {
   }, [user, username])
 
   useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) => {
+    db.collection("posts").orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
       setPosts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -77,7 +79,8 @@ function App() {
       })
     })
     .catch((error) => alert(error.message))
-    .setOpen(false)
+    
+    setOpen(false)
   };
 
   const signIn = (event) => {
@@ -85,11 +88,14 @@ function App() {
     auth
     .signInWithEmailAndPassword(email, password)
     .catch((error) => alert(error.message))
-    .setOpenSignIn(false)
+    
+    setOpenSignIn(false)
   }
 
   return (
+
     <div className="App">
+  
       <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
@@ -122,11 +128,10 @@ function App() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button type="submit" onClick={signUp}> Sign Up </Button>
+            <Button type="submit" onClick={signUp}> Sign up </Button>
           </form>
         </div>
       </Modal>
-
 
       <Modal open={openSignIn} 
       onClose={() => setOpenSignIn(false)}
@@ -165,18 +170,25 @@ function App() {
           src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
           alt=""
         />
-      </div>
-
       {user ? (
-         <Button onClick={() => auth.signOut()}>Log Out</Button>
-      ):(
-       <div className="app__loginContainer">
-         <Button onClick={() => setOpen(true)}>Sign Up</Button>
-         <Button onClick={() => setOpen(true)}>Log in</Button>
+        <Button onClick={() => auth.signOut()}>Log Out</Button>
+        ):(
+          <div className="app__loginContainer">
+         <Button onClick={() => setOpenSignIn(true)}>Log in</Button>
+         <Button onClick={() => setOpen(true)}>Sign up</Button>
 
       </div>
       )}
+      </div>
 
+          {user?.displayName ? (
+            <ImageUpload username={user.displayName} />
+          ):(
+            <h3>Login or Sign up to upload content</h3>
+          )}
+
+
+        <div className="app__posts">
 
       {posts.map(({ id, post }) => (
         <Post
@@ -186,8 +198,11 @@ function App() {
           imageURL={post.imageURL}
         />
       ))}
+        </div>
     </div>
   );
 }
+
+
 
 export default App;
