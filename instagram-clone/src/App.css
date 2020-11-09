@@ -2,34 +2,40 @@
   margin: 0;
 }
 
-.app{
+.app {
   background-color: #fafafa;
   align-items: center;
 }
 
-.app__header{
-  background-color:white;
-  padding:20px;
+.app__header {
+  background-color: white;
+  padding: 20px;
   object-fit: contain;
   border-bottom: 1px solid lightgrey;
   display: flex;
   justify-content: space-between;
 }
 
-.app__headerImage{
-object-fit: contain;
+.app__headerImage {
+  object-fit: contain;
 }
 
-.app__signup{
+.app__signup {
   display: flex;
   flex-direction: column;
 }
 
-.app__posts{
-  padding: 20px;
+.app__posts {
+  margin: 30px;
+  width: auto;
+  object-fit: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-input{
-  padding:5px;
-  margin:5px;
+input {
+  padding: 5px;
+  margin: 5px;
 }
