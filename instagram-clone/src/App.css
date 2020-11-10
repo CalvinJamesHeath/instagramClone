@@ -1,13 +1,18 @@
 * {
   margin: 0;
+  padding: 0;
 }
 
 .app {
   background-color: #fafafa;
   align-items: center;
+  justify-content: center;
 }
 
 .app__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: white;
   padding: 20px;
   object-fit: contain;
@@ -23,6 +28,13 @@
 .app__signup {
   display: flex;
   flex-direction: column;
+}
+
+.logToUpload {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  color: #6082a3;
 }
 
 .app__posts {
