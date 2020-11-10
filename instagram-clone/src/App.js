@@ -93,6 +93,10 @@ function App() {
     setOpenSignIn(false);
   };
 
+  const reload = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="App">
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -181,10 +185,18 @@ function App() {
           </div>
         )}
       </div>
+
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
-        <h3 className="logToUpload">Login or Sign up to upload content</h3>
+        <div className="button__reload">
+          <h3 className="logToUpload">Login or Sign up</h3>
+
+          <Button type="button" onClick={reload}>
+            {" "}
+            If you signed up click here to start uploading!
+          </Button>
+        </div>
       )}
 
       <div className="app__posts">
